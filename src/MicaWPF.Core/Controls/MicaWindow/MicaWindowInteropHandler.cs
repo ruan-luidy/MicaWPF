@@ -51,8 +51,10 @@ public class MicaWindowInteropHandler : MicaWindowProperty
         }
         else if (OsHelper.IsWindows10 && TitleBarType == TitleBarType.WinUI)
         {
-            // Windows 10: Future Acrylic fallback implementation
-            // TODO: Add blur behind effect for better Windows 10 experience
+            // Windows 10: Enhanced effects with fallback chain
+            // Windows 10: Use DWM blur for fallback
+            var margins = new InteropValues.MARGINS { cxLeftWidth = -1 };
+            InteropMethods.DwmExtendFrameIntoClientArea(windowHwnd, ref margins);
         }
 
         base.OnInitialized(e);

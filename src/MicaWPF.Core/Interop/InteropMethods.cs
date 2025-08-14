@@ -349,9 +349,89 @@ public static class InteropMethods
         return DwmEnableBlurBehindWindow(hwnd, ref blurBehind);
     }
 
+    /// <summary>
+    /// Enables Windows 10 Acrylic effect using composition.
+    /// </summary>
+    /// <param name="hwnd">A handle to the window.</param>
+    /// <param name="enable">Whether to enable or disable the effect.</param>
+    /// <returns>The result of the operation.</returns>
+    public static int EnableWindows10Acrylic(nint hwnd, bool enable = true)
+    {
+        // First, enable blur behind
+        var result = EnableBlurBehind(hwnd);
+        
+        // Then, try to enable Windows 10 Acrylic via composition
+        var accent = new AccentPolicy
+        {
+            AccentState = enable ? AccentState.ACCENT_ENABLE_ACRYLICBLURBEHIND : AccentState.ACCENT_DISABLED,
+            AccentFlags = 2, // Window borders
+            GradientColor = 0x01FFFFFF, // Semi-transparent white
+            AnimationId = 0
+        };
+
+        var data = new WindowCompositionAttributeData
+        {
+            Attribute = WindowCompositionAttribute.WCA_ACCENT_POLICY,
+            SizeOfData = Marshal.SizeOf(accent),
+            Data = Marshal.AllocHGlobal(Marshal.SizeOf(accent))
+        };
+
+        try
+        {
+            Marshal.StructureToPtr(accent, data.Data, false);
+            var compositionResult = SetWindowCompositionAttribute(hwnd, ref data);
+            return compositionResult ? 0 : -1;
+        }
+        finally
+        {
+            Marshal.FreeHGlobal(data.Data);
+        }
+    }
+
+    /// <summary>
+    /// Creates a stunning gradient backdrop for ultimate Windows 10 experience.
+    /// </summary>
+    /// <param name="hwnd">A handle to the window.</param>
+    /// <param name="isDark">Whether to use dark theme.</param>
+    /// <returns>The result of the operation.</returns>
+    public static int EnableTenMicaStyle(nint hwnd, bool isDark = true)
+    {
+        // Ultra-modern gradient with transparency
+        var accent = new AccentPolicy
+        {
+            AccentState = AccentState.ACCENT_ENABLE_ACRYLICBLURBEHIND,
+            AccentFlags = 2,
+            // Dark theme: Deep purple-blue gradient
+            // Light theme: Warm light gradient  
+            GradientColor = isDark ? 0x99301934 : 0x99F0F0F0, // Alpha + RGB
+            AnimationId = 0
+        };
+
+        var data = new WindowCompositionAttributeData
+        {
+            Attribute = WindowCompositionAttribute.WCA_ACCENT_POLICY,
+            SizeOfData = Marshal.SizeOf(accent),
+            Data = Marshal.AllocHGlobal(Marshal.SizeOf(accent))
+        };
+
+        try
+        {
+            Marshal.StructureToPtr(accent, data.Data, false);
+            return SetWindowCompositionAttribute(hwnd, ref data) ? 0 : -1;
+        }
+        finally
+        {
+            Marshal.FreeHGlobal(data.Data);
+        }
+    }
+
     [DllImport(ExternDll.DwmApi)]
     [DefaultDllImportSearchPaths(DllImportSearchPath.System32)]
     private static extern int DwmEnableBlurBehindWindow(nint hWnd, ref DWM_BLURBEHIND pBlurBehind);
+
+    [DllImport(ExternDll.User32)]
+    [DefaultDllImportSearchPaths(DllImportSearchPath.System32)]
+    private static extern bool SetWindowCompositionAttribute(nint hwnd, ref WindowCompositionAttributeData data);
 }
 #endif
 #pragma warning restore IDE0079 // Remove unnecessary suppression

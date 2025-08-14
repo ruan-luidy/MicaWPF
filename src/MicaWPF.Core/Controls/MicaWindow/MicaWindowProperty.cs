@@ -20,6 +20,9 @@ public class MicaWindowProperty : MicaWindowStyle
     public static readonly DependencyProperty TitleBarTypeProperty = DependencyProperty.Register(nameof(TitleBarType), typeof(TitleBarType), typeof(MicaWindowStyle), new UIPropertyMetadata(TitleBarType.WinUI));
     public static readonly DependencyProperty TitleBarBrushProperty = DependencyProperty.Register(nameof(TitleBarBrush), typeof(Brush), typeof(MicaWindowStyle));
     public static readonly DependencyProperty MarginMaximizedProperty = DependencyProperty.Register(nameof(MarginMaximized), typeof(Thickness), typeof(MicaWindowStyle));
+    public static readonly DependencyProperty TenMicaCornerRadiusProperty = DependencyProperty.Register(nameof(TenMicaCornerRadius), typeof(int), typeof(MicaWindowStyle), new UIPropertyMetadata(12));
+    public static readonly DependencyProperty TenMicaModeProperty = DependencyProperty.Register(nameof(TenMicaMode), typeof(Helpers.TenMicaMode), typeof(MicaWindowStyle), new UIPropertyMetadata(Helpers.TenMicaHelper.GetBestModeForSystem()));
+    public static readonly DependencyProperty EnableTenMicaProperty = DependencyProperty.Register(nameof(EnableTenMica), typeof(bool), typeof(MicaWindowStyle), new UIPropertyMetadata(true));
 
     public MicaWindowProperty()
         : base()
@@ -78,5 +81,32 @@ public class MicaWindowProperty : MicaWindowStyle
     {
         get => (Thickness)GetValue(MarginMaximizedProperty);
         set => SetValue(MarginMaximizedProperty, value);
+    }
+
+    /// <summary>
+    /// Gets or sets the TenMica corner radius (default: 12).
+    /// </summary>
+    public int TenMicaCornerRadius
+    {
+        get => (int)GetValue(TenMicaCornerRadiusProperty);
+        set => SetValue(TenMicaCornerRadiusProperty, value);
+    }
+
+    /// <summary>
+    /// Gets or sets the TenMica mode.
+    /// </summary>
+    public Helpers.TenMicaMode TenMicaMode
+    {
+        get => (Helpers.TenMicaMode)GetValue(TenMicaModeProperty);
+        set => SetValue(TenMicaModeProperty, value);
+    }
+
+    /// <summary>
+    /// Gets or sets whether TenMica effects are enabled (default: true).
+    /// </summary>
+    public bool EnableTenMica
+    {
+        get => (bool)GetValue(EnableTenMicaProperty);
+        set => SetValue(EnableTenMicaProperty, value);
     }
 }

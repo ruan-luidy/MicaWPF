@@ -392,5 +392,37 @@ public static class InteropValues
         public nint hRgnBlur;
         public bool fTransitionOnMaximized;
     }
+
+    [StructLayout(LayoutKind.Sequential)]
+    public struct AccentPolicy
+    {
+        public AccentState AccentState;
+        public uint AccentFlags;
+        public uint GradientColor;
+        public uint AnimationId;
+    }
+
+    [StructLayout(LayoutKind.Sequential)]
+    public struct WindowCompositionAttributeData
+    {
+        public WindowCompositionAttribute Attribute;
+        public nint Data;
+        public int SizeOfData;
+    }
+
+    public enum AccentState
+    {
+        ACCENT_DISABLED = 0,
+        ACCENT_ENABLE_GRADIENT = 1,
+        ACCENT_ENABLE_TRANSPARENTGRADIENT = 2,
+        ACCENT_ENABLE_BLURBEHIND = 3,
+        ACCENT_ENABLE_ACRYLICBLURBEHIND = 4,
+        ACCENT_ENABLE_HOSTBACKDROP = 5
+    }
+
+    public enum WindowCompositionAttribute
+    {
+        WCA_ACCENT_POLICY = 19
+    }
 }
 #pragma warning restore IDE0079 // Remove unnecessary suppression

@@ -1,0 +1,98 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <!-- 🔥 ULTIMATE TenMica Dark Gradient 🔥 -->
+    <LinearGradientBrush x:Key="TenMica.DarkGradient">
+        <GradientStop Color="#FF1A1A2E" Offset="0" />
+        <GradientStop Color="#FF16213E" Offset="0.3" />
+        <GradientStop Color="#FF0F172A" Offset="0.7" />
+        <GradientStop Color="#FF020617" Offset="1" />
+    </LinearGradientBrush>
+
+    <!-- 🌈 ULTIMATE TenMica Light Gradient 🌈 -->
+    <LinearGradientBrush x:Key="TenMica.LightGradient">
+        <GradientStop Color="#FFF8FAFC" Offset="0" />
+        <GradientStop Color="#FFF1F5F9" Offset="0.3" />
+        <GradientStop Color="#FFE2E8F0" Offset="0.7" />
+        <GradientStop Color="#FFCBD5E1" Offset="1" />
+    </LinearGradientBrush>
+
+    <!-- ⚡ Animated Glow Dark ⚡ -->
+    <RadialGradientBrush x:Key="TenMica.DarkGlow">
+        <GradientStop Color="#44FF6B9D" Offset="0" />
+        <GradientStop Color="#33C084FC" Offset="0.5" />
+        <GradientStop Color="#2206B6D4" Offset="0.8" />
+        <GradientStop Color="#00000000" Offset="1" />
+    </RadialGradientBrush>
+
+    <!-- ✨ Animated Glow Light ✨ -->
+    <RadialGradientBrush x:Key="TenMica.LightGlow">
+        <GradientStop Color="#3306B6D4" Offset="0" />
+        <GradientStop Color="#2200D4AA" Offset="0.5" />
+        <GradientStop Color="#1100A3E0" Offset="0.8" />
+        <GradientStop Color="#00000000" Offset="1" />
+    </RadialGradientBrush>
+
+    <!-- 🚀 ULTIMATE Window Background Style 🚀 -->
+    <Style x:Key="TenMica.WindowBackground" TargetType="Grid">
+        <Setter Property="Background">
+            <Setter.Value>
+                <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                    <GradientStop Color="#99301934" Offset="0" />
+                    <GradientStop Color="#BB1A1A2E" Offset="0.5" />
+                    <GradientStop Color="#DD0F172A" Offset="1" />
+                </LinearGradientBrush>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="Effect">
+            <Setter.Value>
+                <BlurEffect Radius="20" KernelType="Gaussian" />
+            </Setter.Value>
+        </Setter>
+        <Style.Triggers>
+            <!-- Animate on mouse hover -->
+            <EventTrigger RoutedEvent="MouseEnter">
+                <BeginStoryboard>
+                    <Storyboard>
+                        <DoubleAnimation 
+                            Storyboard.TargetProperty="Opacity"
+                            To="1.0" Duration="0:0:0.3" />
+                    </Storyboard>
+                </BeginStoryboard>
+            </EventTrigger>
+            <EventTrigger RoutedEvent="MouseLeave">
+                <BeginStoryboard>
+                    <Storyboard>
+                        <DoubleAnimation 
+                            Storyboard.TargetProperty="Opacity"
+                            To="0.95" Duration="0:0:0.3" />
+                    </Storyboard>
+                </BeginStoryboard>
+            </EventTrigger>
+        </Style.Triggers>
+    </Style>
+
+    <!-- 💎 Glass Effect Border 💎 -->
+    <Style x:Key="TenMica.GlassBorder" TargetType="Border">
+        <Setter Property="Background">
+            <Setter.Value>
+                <LinearGradientBrush StartPoint="0,0" EndPoint="1,1" Opacity="0.1">
+                    <GradientStop Color="White" Offset="0" />
+                    <GradientStop Color="Transparent" Offset="0.5" />
+                    <GradientStop Color="White" Offset="1" />
+                </LinearGradientBrush>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="BorderBrush">
+            <Setter.Value>
+                <LinearGradientBrush>
+                    <GradientStop Color="#33FFFFFF" Offset="0" />
+                    <GradientStop Color="#11FFFFFF" Offset="1" />
+                </LinearGradientBrush>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="BorderThickness" Value="1,0,0,1" />
+        <Setter Property="CornerRadius" Value="12" />
+    </Style>
+
+</ResourceDictionary>
