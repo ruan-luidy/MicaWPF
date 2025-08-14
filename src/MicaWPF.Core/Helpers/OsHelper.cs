@@ -200,6 +200,52 @@ public static class OsHelper
     public static bool IsWindows11_22523_OrGreater { get; } = IsWindowsNT && new Version(10, 0, 22523) <= _osVersion;
 
     /// <summary>
+    ///     Gets a value indicating whether windows 11 22H2 Build 22621 (2022 Update).
+    /// </summary>
+    public static bool IsWindows11_22H2 { get; } = IsWindowsNT && new Version(10, 0, 22621) <= _osVersion;
+
+    /// <summary>
+    ///     Gets a value indicating whether windows 11 22H2 Build 22621 Or Greater.
+    /// </summary>
+    public static bool IsWindows11_22H2_OrGreater { get; } = IsWindowsNT && new Version(10, 0, 22621) <= _osVersion;
+
+    /// <summary>
+    ///     Gets a value indicating whether windows 11 23H2 Build 22631 (2023 Update).
+    /// </summary>
+    public static bool IsWindows11_23H2 { get; } = IsWindowsNT && new Version(10, 0, 22631) <= _osVersion;
+
+    /// <summary>
+    ///     Gets a value indicating whether windows 11 23H2 Build 22631 Or Greater.
+    /// </summary>
+    public static bool IsWindows11_23H2_OrGreater { get; } = IsWindowsNT && new Version(10, 0, 22631) <= _osVersion;
+
+    /// <summary>
+    ///     Gets a value indicating whether Windows supports native Mica backdrop.
+    /// </summary>
+    public static bool SupportsMicaNatively { get; } = IsWindows11_OrGreater;
+
+    /// <summary>
+    ///     Gets a value indicating whether Windows needs Mica fallback.
+    /// </summary>
+    public static bool NeedsMicaFallback { get; } = IsWindows10;
+
+    /// <summary>
+    ///     Gets the Windows version string for debugging.
+    /// </summary>
+    public static string WindowsVersionString
+    {
+        get
+        {
+            var version = GetOSVersion();
+            if (IsWindows11_23H2_OrGreater) return $"Windows 11 23H2+ (Build {version.Build})";
+            if (IsWindows11_22H2_OrGreater) return $"Windows 11 22H2 (Build {version.Build})";
+            if (IsWindows11_OrGreater) return $"Windows 11 (Build {version.Build})";
+            if (IsWindows10) return $"Windows 10 (Build {version.Build})";
+            return $"Windows {version.Major}.{version.Minor} (Build {version.Build})";
+        }
+    }
+
+    /// <summary>
     /// Get the current OS version.
     /// </summary>
     /// <returns>The actual os <see cref="Version"/> (Major,Minor,Build,Revision).</returns>

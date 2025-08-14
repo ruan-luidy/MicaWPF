@@ -383,5 +383,14 @@ public static class InteropValues
         public const int False = 0x00;
         public const int DWMWA_COLOR_NONE = unchecked((int)0xFFFFFFFE);
     }
+
+    [StructLayout(LayoutKind.Sequential)]
+    public struct DWM_BLURBEHIND
+    {
+        public uint dwFlags;
+        public bool fEnable;
+        public nint hRgnBlur;
+        public bool fTransitionOnMaximized;
+    }
 }
 #pragma warning restore IDE0079 // Remove unnecessary suppression

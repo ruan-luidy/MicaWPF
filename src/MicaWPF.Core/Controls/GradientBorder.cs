@@ -21,8 +21,8 @@ public class GradientBorder : UserControl
 
     public Brush? TopBorderBrush
     {
-        get => (Brush)GetValue(BottomBorderBrushProperty);
-        set => SetValue(BottomBorderBrushProperty, value);
+        get => (Brush)GetValue(TopBorderBrushProperty);
+        set => SetValue(TopBorderBrushProperty, value);
     }
 
     public Brush? BottomBorderBrush
@@ -33,7 +33,7 @@ public class GradientBorder : UserControl
 
     public CornerRadius? CornerRadius
     {
-        get => (CornerRadius)GetValue(BottomBorderBrushProperty);
-        set => SetValue(BottomBorderBrushProperty, value);
+        get => (CornerRadius)GetValue(CornerRadiusProperty);
+        set => SetValue(CornerRadiusProperty, value);
     }
 }

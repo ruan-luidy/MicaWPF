@@ -40,12 +40,19 @@ public class MicaWindowInteropHandler : MicaWindowProperty
 
     protected override void OnInitialized(EventArgs e)
     {
+        var windowHwnd = new WindowInteropHelper(this).EnsureHandle();
+        HwndSource.FromHwnd(windowHwnd)?.AddHook(HwndSourceHook);
+
         if (OsHelper.IsWindows11_OrGreater && TitleBarType == TitleBarType.WinUI)
         {
-            var windowHwnd = new WindowInteropHelper(this).EnsureHandle();
-            HwndSource.FromHwnd(windowHwnd)?.AddHook(HwndSourceHook);
+            // Windows 11: Native Mica support
             InteropMethods.RoundWindowCorner(windowHwnd);
             InteropMethods.HideAllWindowButton(windowHwnd);
+        }
+        else if (OsHelper.IsWindows10 && TitleBarType == TitleBarType.WinUI)
+        {
+            // Windows 10: Future Acrylic fallback implementation
+            // TODO: Add blur behind effect for better Windows 10 experience
         }
 
         base.OnInitialized(e);

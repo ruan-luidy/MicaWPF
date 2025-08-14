@@ -330,6 +330,28 @@ public static class InteropMethods
     [DllImport(ExternDll.DwmApi)]
     [DefaultDllImportSearchPaths(DllImportSearchPath.System32)]
     private static extern int DwmSetWindowAttribute(nint hwnd, DWMWINDOWATTRIBUTE dwAttribute, ref int pvAttribute, int cbAttribute);
+
+    /// <summary>
+    /// Enables blur behind effect for Windows 10 fallback.
+    /// </summary>
+    /// <param name="hwnd">A handle to the window.</param>
+    /// <returns>The result of the operation.</returns>
+    public static int EnableBlurBehind(nint hwnd)
+    {
+        var blurBehind = new DWM_BLURBEHIND
+        {
+            dwFlags = 0x00000001 | 0x00000002, // DWM_BB_ENABLE | DWM_BB_BLURREGION
+            fEnable = true,
+            hRgnBlur = nint.Zero,
+            fTransitionOnMaximized = true
+        };
+        
+        return DwmEnableBlurBehindWindow(hwnd, ref blurBehind);
+    }
+
+    [DllImport(ExternDll.DwmApi)]
+    [DefaultDllImportSearchPaths(DllImportSearchPath.System32)]
+    private static extern int DwmEnableBlurBehindWindow(nint hWnd, ref DWM_BLURBEHIND pBlurBehind);
 }
 #endif
 #pragma warning restore IDE0079 // Remove unnecessary suppression
